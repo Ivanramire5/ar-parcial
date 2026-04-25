@@ -10,29 +10,31 @@ public class MultipleImagesTrackingManager : MonoBehaviour
     private Dictionary<string, GameObject> _arObjects;
 
     private void Start()
+{
+    Debug.LogError("!!! EL SCRIPT ESTÁ VIVO");
+    _trackedImageManager = GetComponent<ARTrackedImageManager>();
+    _arObjects = new Dictionary<string, GameObject>();
+
+    
+    _trackedImageManager.trackablesChanged.AddListener(OnImagesTrackedChanged);
+
+    SetupSceneElements();
+}
+
+private void OnDestroy()
+{
+    
+    if (_trackedImageManager != null)
     {
-        Debug.LogError("!!! AAAAAAAAAAAAAAAAAAAAdffsdfdsfsdfAAAA");
-        Debug.LogError("!!! EL SCRIPT ESTÁ VIVO");
-        _trackedImageManager = GetComponent<ARTrackedImageManager>();
-        _arObjects = new Dictionary<string, GameObject>();
-
-        _trackedImageManager.trackablesChanged.AddListener(OnImagesTrackedChanged);
-
-        SetupSceneElements();
+        _trackedImageManager.trackablesChanged.RemoveListener(OnImagesTrackedChanged);
     }
-
-    private void OnDestroy()
-    {
-        if (_trackedImageManager != null)
-            _trackedImageManager.trackablesChanged.RemoveListener(OnImagesTrackedChanged);
-    }
-
+}
     private void SetupSceneElements()
     {
         foreach (var prefab in prefabsToSpawn)
         {
             var arObject = Instantiate(prefab, Vector3.zero, Quaternion.identity);
-            // El nombre del objeto en el diccionario será "Marker-1" o "Marker-2"
+            
             arObject.name = prefab.name;
             arObject.gameObject.SetActive(false);
             _arObjects.Add(arObject.name, arObject);
@@ -53,7 +55,7 @@ public class MultipleImagesTrackingManager : MonoBehaviour
             UpdateTrackedImages(trackedImage);
         }
 
-        // CORRECCIÓN ERROR CS1061: Accedemos a .Value porque es un KeyValuePair
+        
         foreach (var trackedImagePair in eventArgs.removed)
         {
             var image = trackedImagePair.Value;
@@ -66,30 +68,27 @@ public class MultipleImagesTrackingManager : MonoBehaviour
 
     private void UpdateTrackedImages(ARTrackedImage trackedImage)
     {
-        if (trackedImage == null) return;
-
         string imageName = trackedImage.referenceImage.name;
-
-        // Verificamos si el nombre de la imagen existe en nuestro diccionario de prefabs
         if (_arObjects.ContainsKey(imageName))
         {
+            GameObject model = _arObjects[imageName];
+
             if (trackedImage.trackingState is TrackingState.Limited or TrackingState.None)
             {
-                _arObjects[imageName].SetActive(false);
+                model.SetActive(false);
             }
             else
             {
-                _arObjects[imageName].SetActive(true);
-                _arObjects[imageName].transform.position = trackedImage.transform.position;
-                _arObjects[imageName].transform.rotation = trackedImage.transform.rotation;
-
-                Debug.LogError(">>> MOSTRANDO PREFAB: " + imageName + " en posición: " + trackedImage.transform.position);
+                model.SetActive(true);
+                
+                
+                model.transform.SetParent(trackedImage.transform);
+                model.transform.localPosition = Vector3.zero;
+                model.transform.localRotation = Quaternion.identity;
+                
+                
+                model.transform.localScale = new Vector3(0.1f, 0.1f, 0.1f);
             }
-        }
-        else
-        {
-            // ERROR ROJO si el nombre no coincide (el error más común)
-            Debug.LogError("!!! ERROR DE NOMBRES: El celu ve '" + imageName + "' pero en el diccionario solo tengo: " + string.Join(", ", _arObjects.Keys));
         }
     }
 }

@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class Creatura : ARInteractableObject
+public class Marker1 : ARInteractableObject
 {
     private Animator _animator;
 
@@ -15,8 +15,8 @@ public class Creatura : ARInteractableObject
 
         if (_animator != null)
         {
-            // IMPORTANTE: Asegurate que en el Animator el trigger se llame exactamente IraIdle
-            _animator.SetTrigger("IraIdle");
+            
+            _animator.SetTrigger("idle");
         }
     }
 }

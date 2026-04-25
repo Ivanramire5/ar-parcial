@@ -2,7 +2,7 @@ using System;
 using UnityEngine;
 
 // El script Monstro hereda toda la lógica de colisiones de ARInteractableObject.
-public class Monstro : ARInteractableObject
+public class Marker2 : ARInteractableObject
 {
     private Animator _animator;
 
@@ -15,7 +15,7 @@ public class Monstro : ARInteractableObject
     {
         base.SetState(state);
 
-        // Activamos la animación idle.
-        _animator.SetTrigger("IraIdle");
+        
+        _animator.SetTrigger("idle");
     }
 }

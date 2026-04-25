@@ -12,6 +12,8 @@ GameObject:
   - component: {fileID: 4274122788822416421}
   - component: {fileID: 6060265547264086486}
   - component: {fileID: 3150522972805103349}
+  - component: {fileID: 8960372290326813246}
+  - component: {fileID: -3635311007000809739}
   m_Layer: 0
   m_Name: Marker-2
   m_TagString: Untagged
@@ -113,6 +115,40 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &8960372290326813246
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5657681152975427495}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 87cdba3036a49ef40ba05bab1ef446ca, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Marker2
+--- !u!95 &-3635311007000809739
+Animator:
+  serializedVersion: 7
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5657681152975427495}
+  m_Enabled: 1
+  m_Avatar: {fileID: 9000000, guid: 3ac8e2edfb30014478ff78832f7cc185, type: 3}
+  m_Controller: {fileID: 9100000, guid: 2c8336794eb602b438f1c9c6d0a11cc1, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_AnimatePhysics: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1001 &7731755183039509883
 PrefabInstance:
   m_ObjectHideFlags: 0
